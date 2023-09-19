@@ -28,7 +28,9 @@ pnpm start:dev
 pnpm start:debug
 ```
 
-> 啟動後打開: [http://localhost:3050](http://localhost:3000/)
+> 啟動後打開: <http://localhost:3000/>
+>
+> swagger: <http://localhost:3000/api>
 
 ## docker
 
