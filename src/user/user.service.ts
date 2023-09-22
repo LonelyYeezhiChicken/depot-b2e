@@ -1,9 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { UserServiceInterface } from './interfaces/user.service.interface';
 import { UpdateUserDto, CreateUserDto, UserDto } from './dto';
+import { UUIDServiceInterface } from 'src/uuid-service/uuid.service.interface';
 
 @Injectable()
 export class UserService implements UserServiceInterface {
+  constructor(
+    @Inject('UUIDServiceInterface')
+    private readonly uuidService: UUIDServiceInterface) {}
+
   /** 使用 store id 查出底下所有的使用者
    *
    * @param storeId store id
@@ -37,7 +42,7 @@ export class UserService implements UserServiceInterface {
    */
   async getUserById(id: string): Promise<UserDto> {
     let user: UserDto = {
-      id: '80f78f75-37b5-4977-bffc-5afc5db99123',
+      id: await this.uuidService.getUUID(),
       fullName: 'Pink Chicken',
       email: 'PinkChicken@local.com',
       phoneNumber: '0900000011',
