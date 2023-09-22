@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { UserServiceInterface } from './interfaces/user.service.interface';
 import { UpdateUserDto, CreateUserDto, UserDto } from './dto';
 
 @Injectable()
-export class UserService {
+export class UserService implements UserServiceInterface {
   /** 使用 store id 查出底下所有的使用者
    *
    * @param storeId store id
@@ -48,9 +49,13 @@ export class UserService {
   /** 新增使用者
    *
    * @param newUser new user
+   * @param userId update user id
    * @returns new user list
    */
-  async createUser(newUser: CreateUserDto): Promise<Array<UserDto>> {
+  async createUser(
+    newUser: CreateUserDto,
+    userId: string,
+  ): Promise<Array<UserDto>> {
     let users = new Array<UserDto>();
 
     users.push({
@@ -83,11 +88,13 @@ export class UserService {
    *
    * @param id user id
    * @param oldUser edit user
+   * @param userId update user id
    * @returns user list
    */
   async updaterUser(
     id: string,
     oldUser: UpdateUserDto,
+    userId: string,
   ): Promise<Array<UserDto>> {
     let users = new Array<UserDto>();
 
