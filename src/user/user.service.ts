@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserServiceInterface } from './interfaces/user.service.interface';
 import { UpdateUserDto, CreateUserDto, UserDto } from './dto';
-import { UUIDServiceInterface } from 'src/uuid-service/uuid.service.interface';
+import { UUIDServiceInterface } from 'src/uuid/uuid.service.interface';
 
 @Injectable()
 export class UserService implements UserServiceInterface {
