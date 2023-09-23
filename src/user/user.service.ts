@@ -1,8 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { UserServiceInterface } from './interfaces/user.service.interface';
 import { UpdateUserDto, CreateUserDto, UserDto } from './dto';
+import { UUIDServiceInterface } from 'src/uuid/uuid.service.interface';
 
 @Injectable()
-export class UserService {
+export class UserService implements UserServiceInterface {
+  constructor(
+    @Inject('UUIDServiceInterface')
+    private readonly uuidService: UUIDServiceInterface) {}
+
   /** 使用 store id 查出底下所有的使用者
    *
    * @param storeId store id
@@ -36,7 +42,7 @@ export class UserService {
    */
   async getUserById(id: string): Promise<UserDto> {
     let user: UserDto = {
-      id: '80f78f75-37b5-4977-bffc-5afc5db99123',
+      id: await this.uuidService.getUUID(),
       fullName: 'Pink Chicken',
       email: 'PinkChicken@local.com',
       phoneNumber: '0900000011',
@@ -48,9 +54,13 @@ export class UserService {
   /** 新增使用者
    *
    * @param newUser new user
+   * @param userId update user id
    * @returns new user list
    */
-  async createUser(newUser: CreateUserDto): Promise<Array<UserDto>> {
+  async createUser(
+    newUser: CreateUserDto,
+    userId: string,
+  ): Promise<Array<UserDto>> {
     let users = new Array<UserDto>();
 
     users.push({
@@ -83,11 +93,13 @@ export class UserService {
    *
    * @param id user id
    * @param oldUser edit user
+   * @param userId update user id
    * @returns user list
    */
   async updaterUser(
     id: string,
     oldUser: UpdateUserDto,
+    userId: string,
   ): Promise<Array<UserDto>> {
     let users = new Array<UserDto>();
 

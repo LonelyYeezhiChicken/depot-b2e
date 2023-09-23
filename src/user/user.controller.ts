@@ -6,17 +6,21 @@ import {
   Put,
   Param,
   Delete,
+  Inject,
 } from '@nestjs/common';
 import { UpdateUserDto, CreateUserDto, UserDto } from './dto';
-import { UserService } from './user.service';
+import { UserServiceInterface } from './interfaces/user.service.interface';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    @Inject('UserServiceInterface')
+    private readonly userService: UserServiceInterface,
+  ) {}
 
-  @Get(':storeId')
-  async findAll(@Param('id') storeId: string): Promise<Array<UserDto>> {
-    return await this.userService.getUserByStoreId(storeId);
+  @Get()
+  async findAll(): Promise<Array<UserDto>> {
+    return await this.userService.getUserByStoreId("storeId");
   }
 
   @Get(':id')
@@ -26,12 +30,12 @@ export class UserController {
 
   @Post()
   async create(@Body() createCatDto: CreateUserDto) {
-    return await this.userService.createUser(createCatDto);
+    return await this.userService.createUser(createCatDto, '');
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateCatDto: UpdateUserDto) {
-    return await this.userService.updaterUser(id, updateCatDto);
+    return await this.userService.updaterUser(id, updateCatDto, '');
   }
 
   @Delete(':id')
