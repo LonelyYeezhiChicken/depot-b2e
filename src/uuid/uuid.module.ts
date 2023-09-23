@@ -1,18 +1,18 @@
 import { Module ,Global } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { UUIDService } from './uuid.service';
 
 @Global()
 @Module({
   providers: [
     {
-      provide: 'UserServiceInterface',
-      useClass: UserService,
+      provide: 'UUIDServiceInterface',
+      useClass: UUIDService,
     },
   ],
   exports: [
     {
-      provide: 'UserServiceInterface',
-      useClass: UserService,
+      provide: 'UUIDServiceInterface',
+      useClass: UUIDService,
     },
   ],
 })

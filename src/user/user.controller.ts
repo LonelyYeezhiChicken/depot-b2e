@@ -18,9 +18,9 @@ export class UserController {
     private readonly userService: UserServiceInterface,
   ) {}
 
-  @Get(':storeId')
-  async findAll(@Param('id') storeId: string): Promise<Array<UserDto>> {
-    return await this.userService.getUserByStoreId(storeId);
+  @Get()
+  async findAll(): Promise<Array<UserDto>> {
+    return await this.userService.getUserByStoreId("storeId");
   }
 
   @Get(':id')
