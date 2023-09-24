@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
-import { UserRepositoryInterface } from './interfaces/user.repository.interface';
-import { ErrorCheckServiceInterface } from 'src/error-check/error-check.service.interface';
+// import { UserRepositoryInterface } from './interfaces/user.repository.interface';
+// import { ErrorCheckServiceInterface } from 'src/error-check/error-check.service.interface';
 import { UserDto } from './dto';
 import { ErrorCheckModule } from '../error-check/error-check.module';
 
 describe('UserService', () => {
   let userService: UserService;
-  let userRepository: UserRepositoryInterface;
-  let errorCheckService: ErrorCheckServiceInterface;
+  // let userRepository: UserRepositoryInterface;
+  // let errorCheckService: ErrorCheckServiceInterface;
   let users: Array<UserDto>;
 
   beforeEach(async () => {
@@ -59,7 +59,7 @@ describe('UserService', () => {
               return Promise.resolve(users);
             }),
             updaterUser: jest.fn((id, oldUser, userId) => {
-              let data = users.find((x) => x.id === id);
+              const data = users.find((x) => x.id === id);
               data.fullName = oldUser.fullName;
               data.email = oldUser.email;
               data.phoneNumber = oldUser.phoneNumber;
@@ -76,12 +76,12 @@ describe('UserService', () => {
     }).compile();
 
     userService = module.get<UserService>(UserService);
-    userRepository = module.get<UserRepositoryInterface>(
-      'UserRepositoryInterface',
-    );
-    errorCheckService = module.get<ErrorCheckServiceInterface>(
-      'ErrorCheckServiceInterface',
-    );
+    // userRepository = module.get<UserRepositoryInterface>(
+    //   'UserRepositoryInterface',
+    // );
+    // errorCheckService = module.get<ErrorCheckServiceInterface>(
+    //   'ErrorCheckServiceInterface',
+    // );
   });
 
   it('should be defined', () => {
