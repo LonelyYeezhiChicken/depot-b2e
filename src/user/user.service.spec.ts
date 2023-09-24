@@ -1,14 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
-// import { UserRepositoryInterface } from './interfaces/user.repository.interface';
-// import { ErrorCheckServiceInterface } from 'src/error-check/error-check.service.interface';
 import { UserDto } from './dto';
 import { ErrorCheckModule } from '../error-check/error-check.module';
 
 describe('UserService', () => {
   let userService: UserService;
-  // let userRepository: UserRepositoryInterface;
-  // let errorCheckService: ErrorCheckServiceInterface;
   let users: Array<UserDto>;
 
   beforeEach(async () => {
@@ -76,12 +72,6 @@ describe('UserService', () => {
     }).compile();
 
     userService = module.get<UserService>(UserService);
-    // userRepository = module.get<UserRepositoryInterface>(
-    //   'UserRepositoryInterface',
-    // );
-    // errorCheckService = module.get<ErrorCheckServiceInterface>(
-    //   'ErrorCheckServiceInterface',
-    // );
   });
 
   it('should be defined', () => {
