@@ -107,16 +107,27 @@ describe('UserService', () => {
       expect(actual).toStrictEqual([]);
     });
 
-        // case2
-        it('store id is store123, return []', async () => {
-          const storeId = undefined;
-    
-          // const actual = await userService.getUserByStoreId(storeId);
+    // case3
+    it("store id is '', throw exception data cant not empty", async () => {
+      const storeId = '';
 
-          const result = new Error('storeId,資料未定義')
-    
-          expect(await userService.getUserByStoreId(storeId)).toThrowError(result);
-        });
+      const expectedError = new Error('storeId,資料不能為空或未定義');
+
+      await expect(
+        async () => await userService.getUserByStoreId(storeId),
+      ).rejects.toThrow(expectedError);
+    });
+
+    // case4
+    it('store id is undefined, throw exception data is undefined', async () => {
+      const storeId = undefined;
+
+      const expectedError = new Error('storeId,資料未定義');
+
+      await expect(
+        async () => await userService.getUserByStoreId(storeId),
+      ).rejects.toThrow(expectedError);
+    });
   });
 
   // 添加其他方法的測試用例，使用相同的方式模擬相依服務的行為
